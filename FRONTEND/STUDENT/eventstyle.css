@@ -1,0 +1,142 @@
+body {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+                url("homes.jpeg");
+    background-size: cover;
+    background-position: center;
+    font-family: "Times New Roman", serif;
+}
+
+
+.dashboard-title {
+    text-align: center;
+    margin-top: 35px;
+    font-size: 55px;
+    color: #1d1b1b;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+
+.top-menu {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 25px 0;
+}
+
+
+.event-container {
+    width: 850px;
+    margin: auto;
+    background-color: rgba(241, 208, 198, 0.95);
+    padding: 45px;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+}
+
+
+.event-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.event-name {
+    font-size: 42px;
+    color: #3f241c;
+}
+
+
+.event-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.info-box {
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #3f241c;
+    color: white;
+    text-decoration: none;
+    font-size: 26px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+
+
+.info-box h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+
+.section {
+    margin-bottom: 35px;
+}
+
+.section h3 {
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: #3f241c;
+}
+
+.club-list,
+.sponsor-list {
+    list-style-type: square;
+    padding-left: 30px;
+    font-size: 20px;
+}
+
+.event-description {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+
+.admin-info p {
+    font-size: 20px;
+    margin: 6px 0;
+}
+
+
+.register-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+
+.btn {
+    width: 240px;
+    padding: 15px;
+    text-align: center;
+    background-color: #f1d0c6;
+    color: rgb(56, 53, 53);
+    text-decoration: none;
+    font-size: 22px;
+    border-radius: 14px;
+    transition: 0.3s;
+}
+
+.btn.small {
+    width: 180px;
+}
+
+.btn.small:hover {
+    background-color: #3f241c;
+}
+
+.register-btn {
+    font-size: 26px;
+    background-color: #3f241c;
+    color: white;
+}
+
+.btn:hover {
+    background-color: #cf985d;
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba
+}
