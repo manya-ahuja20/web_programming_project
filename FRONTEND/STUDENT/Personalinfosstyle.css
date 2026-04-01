@@ -1,0 +1,113 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 800;
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("homes.jpeg");
+    background-size: cover;
+    background-position: center;
+}
+h1 {
+    text-align: center;
+    padding: 12px 24px;
+    background-color: rgb(255, 228, 223);
+    border-radius: 10px;
+    width: max-content;
+    margin: 30px auto;
+    font-size: 45px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+.info-container {
+    background-color: rgba(255, 228, 223, 0.85);
+    padding: 25px 40px;
+    margin: 30px 50px;
+    border-radius: 12px;
+}
+
+.events-container {
+    background-color: rgba(255, 228, 223, 0.85);
+    padding: 25px 40px;
+    margin: 30px 50px;
+    border-radius: 12px;
+}
+
+.event-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border-left: 4px solid #612f25;
+}
+
+.event-card h3 {
+    margin: 0 0 10px 0;
+    color: #612f25;
+    font-size: 24px;
+}
+
+.event-card p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+.button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+.btn {
+    display: inline-block;
+    padding: 20px 20px;
+    background-color: #612f25;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    border-radius: 6px;
+}
+
+
+.form-row { 
+    display:flex; 
+    gap:12px; 
+    align-items:center; 
+    margin:10px 0; 
+}
+.form-row label { 
+    width:160px; 
+    font-weight:700; 
+    font-size:18px; 
+    color:#3a2a25; 
+}
+.form-row input[type="text"], .form-row input[type="password"], .form-row input[type="email"] {
+    flex:1; 
+    padding:10px 12px; 
+    font-size:16px; 
+    border:1px solid #d0c1b8; 
+    border-radius:8px; 
+    background:#fff;
+}
+
+#edit-profile-form { 
+    max-width:720px; 
+    margin:18px auto 0; 
+    background: rgba(255,255,255,0.95); 
+    padding:18px; 
+    border-radius:10px; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+} 
+
+.button-container .btn.small { 
+    padding:10px 14px; 
+    font-size:16px; 
+    border-radius:6px; 
+}
+.btn.small.secondary { 
+    background:#cfc2b8; 
+    color:#2f2f2f; 
+}
+
+
+.btn:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2); 
+    transition: all 0.18s ease; 
+}
+
+

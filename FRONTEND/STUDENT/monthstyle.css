@@ -1,0 +1,84 @@
+body {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+                url("homes.jpeg");
+    background-size: cover;
+    background-position: center;
+    font-family: "Times New Roman", serif;
+}
+
+
+.dashboard-title {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 55px;
+    color: #1d1b1b;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+
+.top-menu {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+
+.month-container {
+    background-color: rgba(241, 208, 198, 0.9);
+    width: 750px;
+    margin: auto;
+    padding: 40px;
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+
+.event-box {
+    padding: 25px;
+    text-align: center;
+    background-color: #3f241c;
+    color: white;
+    text-decoration: none;
+    font-size: 26px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.event-box:hover {
+    background-color: #cf985d;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.event-box.disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+
+.btn {
+    width: 240px;
+    padding: 15px;
+    text-align: center;
+    background-color: #f1d0c6;
+    color: rgb(56, 53, 53);
+    text-decoration: none;
+    font-size: 22px;
+    border-radius: 14px;
+    transition: 0.3s;
+}
+
+.btn.small {
+    width: 200px;
+}
+
+.btn:hover {
+    background-color: #3f241c;
+    color: white;
+    transform: translateY(-4px);
+}

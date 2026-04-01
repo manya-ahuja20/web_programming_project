@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Event</title>
+    <link rel="stylesheet" href="Addevents.css">
+</head>
+<body>
+    <h1>Edit Event</h1>
+    <form class="login-form" id="editEventForm">
+        <div class="form-row">
+            <label for="Name">Name: </label>
+            <input type="text" id="Name" name="Name" required>
+        </div>
+        <div class="form-row">
+            <label for="Department">Department: </label>
+            <input type="text" id="Department" name="Department">
+        </div>
+        <div class="form-row">
+            <label for="MainClub">Main Club: </label>
+            <input type="text" id="MainClub" name="MainClub">
+        </div>
+        <div class="form-row">
+            <label for="SecondClub">Second Club: </label>
+            <input type="text" id="SecondClub" name="SecondClub">
+        </div>
+        <div class="form-row">
+            <label for="ThirdClub">Third Club: </label>
+            <input type="text" id="ThirdClub" name="ThirdClub">
+        </div>
+        <div class="form-row">
+            <label for="Adminname">Admin name: </label>
+            <input type="text" id="Adminname" name="Adminname" required>
+        </div>
+        <div class="form-row">
+            <label for="AdminPhone">Admin Phone: </label>
+            <input type="tel" id="AdminPhone" name="AdminPhone">
+        </div>
+        <div class="form-row">
+            <label for="Description">Description: </label>
+            <textarea id="Description" name="Description" rows="4" style="width: 100%; font-size: 18px; font-family: 'Times New Roman', Times, serif;"></textarea>
+        </div>
+        <div class="form-row">
+            <label for="Date">Date: </label>
+            <input type="date" id="Date" name="Date">
+        </div>
+        <div class="form-row">
+            <label for="StartTime">Start Time: </label>
+            <input type="time" id="StartTime" name="StartTime">
+        </div>
+        <div class="form-row">
+            <label for="EndTime">End Time: </label>
+            <input type="time" id="EndTime" name="EndTime">
+        </div>
+        <div class="form-row">
+            <label for="Venue">Venue: </label>
+            <input type="text" id="Venue" name="Venue">
+        </div>
+        <div class="form-row">
+            <label for="MaximumParticipants">Maximum Participants: </label>
+            <input type="number" id="MaximumParticipants" name="MaximumParticipants">
+        </div>
+        <div class="button-container">
+            <button type="submit" class="btn">Save Changes</button>
+        </div>
+    </form>
+    <script src="../js/storage.js"></script>
+    <script>
+        // Load event data
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
+        if (!eventId) {
+            alert('No event ID provided');
+            window.location.href = 'Currentevent.html';
+        }
+        const event = getEventById(eventId);
+        if (!event) {
+            alert('Event not found');
+            window.location.href = 'Currentevent.html';
+        }
+        document.getElementById('Name').value = event.Name;
+        document.getElementById('Department').value = event.Department;
+        document.getElementById('MainClub').value = event.MainClub;
+        document.getElementById('SecondClub').value = event.SecondClub;
+        document.getElementById('ThirdClub').value = event.ThirdClub;
+        document.getElementById('Adminname').value = event.Adminname;
+        document.getElementById('AdminPhone').value = event.AdminPhone || '';
+        document.getElementById('Description').value = event.Description ? event.Description : '';
+        document.getElementById('Date').value = event.Date;
+        document.getElementById('StartTime').value = event.StartTime;
+        document.getElementById('EndTime').value = event.EndTime;
+        document.getElementById('Venue').value = event.Venue;
+        document.getElementById('MaximumParticipants').value = event.MaximumParticipants;
+
+        document.getElementById('editEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const events = getEvents();
+            const idx = events.findIndex(ev => ev.id === eventId);
+            if (idx === -1) {
+                alert('Event not found');
+                return;
+            }
+            events[idx] = {
+                ...events[idx],
+                Name: document.getElementById('Name').value,
+                Department: document.getElementById('Department').value,
+                MainClub: document.getElementById('MainClub').value,
+                SecondClub: document.getElementById('SecondClub').value,
+                ThirdClub: document.getElementById('ThirdClub').value,
+                Adminname: document.getElementById('Adminname').value,
+                AdminPhone: document.getElementById('AdminPhone').value,
+                Description: document.getElementById('Description').value,
+                Date: document.getElementById('Date').value,
+                StartTime: document.getElementById('StartTime').value,
+                EndTime: document.getElementById('EndTime').value,
+                Venue: document.getElementById('Venue').value,
+                MaximumParticipants: document.getElementById('MaximumParticipants').value
+            };
+            saveEvents(events);
+            alert('Event updated successfully!');
+            window.location.href = 'Currentevent.html';
+        });
+    </script>
+</body>
+</html>

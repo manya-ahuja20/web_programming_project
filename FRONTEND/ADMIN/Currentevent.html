@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CURRENT EVENT</title>
+    <link rel="stylesheet" href="Currentevents.css">
+</head>
+<body>
+    <h1 class="dashboard-title">MY EVENTS</h1>
+
+    <div class="top-menu">
+        <a href="Homepagea.html" class="btn small">BACK TO HOME</a>
+    </div>
+
+    <div class="events-container">
+        <!-- Events will be loaded dynamically -->
+    </div>
+
+    <script src="../js/storage.js"></script>
+    <script>
+        requireRole('admin');
+
+        function loadAdminEvents() {
+            const session = getSession();
+            const users = getUsers();
+            const admin = users.find(u => u.id === session.userId);
+            const events = getEventsByAdmin(admin.name);
+            const container = document.querySelector('.events-container');
+            container.innerHTML = '';
+            if (events.length === 0) {
+                container.innerHTML = '<p>No events managed.</p>';
+            } else {
+                events.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.className = 'event-card';
+                    eventDiv.innerHTML = `
+                        <h3>${event.Name}</h3>
+                        <p><strong>ID:</strong> ${event.id}</p>
+                        <p><strong>Date:</strong> ${new Date(event.Date).toLocaleDateString()}</p>
+                        <p><strong>Time:</strong> ${event.StartTime} - ${event.EndTime}</p>
+                        <p><strong>Venue:</strong> ${event.Venue}</p>
+                        <p><strong>Department:</strong> ${event.Department}</p>
+                        <p><strong>Max Participants:</strong> ${event.MaximumParticipants}</p>
+                        <p><strong>Description:</strong> ${event.Description || 'No description'}</p>
+                        <div class="button-container" style="margin-top:15px;">
+                            <a href="editevent.html?id=${event.id}" class="btn">Edit Event</a>
+                        </div>
+                    `;
+                    container.appendChild(eventDiv);
+                });
+            }
+        }
+        loadAdminEvents();
+    </script>
+</body>
+</html>

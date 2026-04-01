@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Details</title>
+    <link rel="stylesheet" href="eventstyle.css">
+</head>
+<body>
+
+    <h1 class="dashboard-title">EVENT DETAILS</h1>
+
+    <div class="top-menu">
+        <a href="Homepages.html" class="btn small">HOME</a>
+        
+    </div>
+
+    <div class="event-container">
+
+        
+        <div class="event-header">
+            <h2 class="event-name"></h2>  
+        </div>
+
+        <div class="event-info">
+
+            <div class="info-box">
+                <h3>Date</h3>
+                <p class="event-date"></p>
+            </div>
+
+            <div class="info-box">
+                <h3>Time</h3>
+                <p class="event-time"></p>
+            </div>
+
+            <div class="info-box">
+                <h3>Venue</h3>
+                <p class="event-venue"></p>
+            </div>
+
+            <div class="info-box">
+                <h3>Organizer</h3>
+                <p class="event-organizer"></p>
+            </div>
+
+        </div>
+
+
+        <div class="section">
+            <h3>Clubs Involved</h3>
+            <ul class="club-list">
+            </ul>
+        </div>
+
+    
+        <div class="section">
+            <h3>About the Event</h3>
+            <p class="event-description">
+            </p>
+        </div>
+
+        <div class="section admin-info">
+            <h3>Admin Information</h3>
+            <p><strong>Event ID:</strong> <span class="event-id"></span></p>
+            <p><strong>Max Participants:</strong> <span class="max-participants"></span></p>
+            <p><strong>Contact:</strong> <span class="admin-name"></span> - <span class="admin-phone"></span></p>
+        </div>
+
+    
+        <div class="register-container">
+            <a href="#" class="btn register-btn">REGISTER NOW</a>
+        </div>
+
+    </div>
+
+    <script src="../js/storage.js"></script>
+    <script>
+        function loadEventDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+            if (!eventId) {
+                alert('No event ID provided');
+                return;
+            }
+            const event = getEventById(eventId);
+            if (!event) {
+                alert('Event not found');
+                return;
+            }
+            // Populate fields
+            document.querySelector('.event-name').textContent = event.Name;
+            document.querySelector('.event-date').textContent = new Date(event.Date).toLocaleDateString();
+            document.querySelector('.event-time').textContent = event.StartTime + ' – ' + event.EndTime;
+            document.querySelector('.event-venue').textContent = event.Venue;
+            document.querySelector('.event-organizer').textContent = event.Department;
+            document.querySelector('.event-id').textContent = event.id;
+            document.querySelector('.max-participants').textContent = event.MaximumParticipants;
+            document.querySelector('.admin-name').textContent = event.Adminname;
+            document.querySelector('.admin-phone').textContent = event.AdminPhone || 'Not provided';
+
+            // Clubs
+            const clubList = document.querySelector('.club-list');
+            clubList.innerHTML = '';
+            [event.MainClub, event.SecondClub, event.ThirdClub].filter(c => c).forEach(club => {
+                const li = document.createElement('li');
+                li.textContent = club;
+                clubList.appendChild(li);
+            });
+
+            // Description
+            document.querySelector('.event-description').textContent = event.Description || 'No description available.';
+
+            // Check if user is logged in and registered
+            const session = getSession();
+            const registerBtn = document.querySelector('.register-btn');
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
+            const eventDate = new Date(event.Date);
+            eventDate.setHours(0, 0, 0, 0);
+            const regCount = getRegistrationCount(event.id);
+            const isPast = eventDate < now;
+            const isFull = regCount >= parseInt(event.MaximumParticipants);
+            if (session && session.role === 'student') {
+                if (isUserRegisteredForEvent(session.userId, event.id)) {
+                    registerBtn.textContent = 'ALREADY REGISTERED';
+                    registerBtn.classList.add('disabled');
+                    registerBtn.href = '#';
+                } else if (isFull) {
+                    registerBtn.textContent = 'EVENT FULL';
+                    registerBtn.classList.add('disabled');
+                    registerBtn.href = '#';
+                } else if (isPast) {
+                    registerBtn.textContent = 'EVENT PASSED';
+                    registerBtn.classList.add('disabled');
+                    registerBtn.href = '#';
+                } else {
+                    registerBtn.textContent = 'REGISTER NOW';
+                    registerBtn.href = 'register.html?id=' + event.id;
+                }
+            } else {
+                if (isFull) {
+                    registerBtn.textContent = 'EVENT FULL';
+                    registerBtn.classList.add('disabled');
+                    registerBtn.href = '#';
+                } else if (isPast) {
+                    registerBtn.textContent = 'EVENT PASSED';
+                    registerBtn.classList.add('disabled');
+                    registerBtn.href = '#';
+                } else {
+                    registerBtn.textContent = 'LOGIN TO REGISTER';
+                    registerBtn.href = '../Basiclogin.html';
+                }
+            }
+        }
+        loadEventDetails();
+    </script>
+</body>
+</html>
+
