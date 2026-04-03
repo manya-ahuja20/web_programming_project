@@ -16,12 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     eventsContainer.innerHTML = '<p>No registered events.</p>';
   } else {
     registrations.forEach(reg => {
+      const event = getEventById(reg.eventId);
+      if (!event) {
+        // Event might have been deleted, skip or show message
+        return;
+      }
       const eventDiv = document.createElement('div');
       eventDiv.className = 'event-card';
       eventDiv.style.marginBottom = '18px';
       eventDiv.innerHTML = `
-        <h3 style="font-size:24px; color:#612f25; margin-bottom:10px;">${reg.eventName}</h3>
-        <p style="font-size:16px;"><strong>Date:</strong> ${new Date(reg.eventDate).toLocaleDateString()}</p>
+        <h3 style="font-size:24px; color:#612f25; margin-bottom:10px;">${event.Name}</h3>
+        <p style="font-size:16px;"><strong>Date:</strong> ${new Date(event.Date).toLocaleDateString()}</p>
         <p style="font-size:16px;"><strong>Participant:</strong> ${reg.participantName}</p>
         <p style="font-size:16px;"><strong>Email:</strong> ${reg.email}</p>
         <p style="font-size:16px;"><strong>Phone:</strong> ${reg.phone}</p>
