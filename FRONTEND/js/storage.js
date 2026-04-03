@@ -115,6 +115,11 @@ function getRegistrationsByEvent(eventId) {
   return registrations.filter(reg => reg.eventId === eventId);
 }
 
+function getRegistrationsByUser(userId) {
+  const registrations = getRegistrations();
+  return registrations.filter(reg => reg.userId === userId);
+}
+
 function getRegistrationCount(eventId) {
   return getRegistrationsByEvent(eventId).length;
 }
