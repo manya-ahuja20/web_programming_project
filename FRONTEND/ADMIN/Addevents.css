@@ -33,10 +33,12 @@ h3 {
     border-radius: 6px;
 }
 .delete-btn {
-    align-items: center;
     background-color: #612f25;
     margin-left: 20px;
-    margin-top: 20px;
+}
+
+.delete-btn:hover {
+    background-color: #612f25;
 }
 .top-menu {
     text-align: center;
