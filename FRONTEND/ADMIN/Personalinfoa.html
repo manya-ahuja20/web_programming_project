@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PERSONAL INFORMATION</title>
+    <link rel="stylesheet" href="Personalinfoas.css">
+</head>
+<body>
+    <h1><strong>PERSONAL INFORMATION</strong></h1>
+    <div class="info-container">
+        <h2>Name: <span id="pi-name"></span></h2>
+        <h2>Username: <span id="pi-username"></span></h2>
+        <h2>Department: <span id="pi-department"></span></h2>
+        <h2>Club: <span id="pi-club"></span></h2>
+        <h2>Events Managed:</h2>
+        <div id="admin-events-list" class="events-container">
+           
+        </div>
+        <div class="button-container" style="margin-top: 20px;">
+            <a href="../Basiclogin.html" class="btn" onclick="clearSession()">LOGOUT</a>
+        </div>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="personalinfoascript.js" defer></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const s = getSession();
+        const users = getUsers();
+        const admin = users.find(u => u.id === s.userId);
+        if (!admin) return;
+        const events = getEventsByAdmin(admin.name);
+        const listDiv = document.getElementById('admin-events-list');
+        if (events.length === 0) {
+            listDiv.innerHTML = '<p>No events managed.</p>';
+        } else {
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'event-card';
+                eventDiv.style.marginBottom = '18px';
+                eventDiv.innerHTML = `
+                    <h3>${event.Name}</h3>
+                    <p><strong>ID:</strong> ${event.id}</p>
+                    <p><strong>Date:</strong> ${new Date(event.Date).toLocaleDateString()}</p>
+                    <p><strong>Time:</strong> ${event.StartTime} - ${event.EndTime}</p>
+                    <p><strong>Venue:</strong> ${event.Venue}</p>
+                    <p><strong>Description:</strong> ${event.Description ? event.Description : 'No description'}</p>
+                `;
+                listDiv.appendChild(eventDiv);
+            });
+        }
+    });
+    </script>
+    <br>
+<div class="button-container" style="margin-top: 20px;">
+            <button id="edit-profile-btn" class="btn">Edit Profile</button>
+        </div>
+
+        <form id="edit-profile-form" style="display:none;margin-top:16px;">
+            <div class="form-row">
+                <label for="edit-department">Department:</label>
+                <input id="edit-department" name="edit-department" type="text">
+            </div>
+            <div class="form-row">
+                <label for="edit-club">Club:</label>
+                <input id="edit-club" name="edit-club" type="text">
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn small">Save</button>
+                <button type="button" id="cancel-edit" class="btn small secondary">Cancel</button>
+            </div>
+        </form>
+        <div class="button-container">
+        <a href="Homepagea.html" class="btn">BACK TO HOME</a>
+        </div>
+</body>
+</html>

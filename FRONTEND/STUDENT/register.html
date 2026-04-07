@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Registration</title>
+    <link rel="stylesheet" href="../ADMIN/Addevents.css">
+</head>
+<body>
+
+    <h1>EVENT REGISTRATION</h1>
+
+    <div class="top-menu">
+        <a href="Homepages.html" class="btn small">BACK TO HOME</a>
+    </div>
+
+
+    <form class="login-form" id="registrationForm">
+        <div class="form-row">
+            <label>Event Name: </label>
+            <span id="event-name" style="font-weight:bold;"></span>
+        </div>
+        <div class="form-row">
+            <label>Event Date: </label>
+            <span id="event-date" style="font-weight:bold;"></span>
+        </div>
+        <div class="form-row">
+            <label for="participantName">Full Name: </label>
+            <input type="text" id="participantName" name="participantName" placeholder="Enter your full name" required style="width: 100%; font-size: 18px; font-family: 'Times New Roman', Times, serif;">
+        </div>
+        <div class="form-row">
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required style="width: 100%; font-size: 18px; font-family: 'Times New Roman', Times, serif;">
+        </div>
+        <div class="form-row">
+            <label for="phone">Phone: </label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required style="width: 100%; font-size: 18px; font-family: 'Times New Roman', Times, serif;">
+        </div>
+        <div class="button-container">
+            <button type="button" class="btn" id="submitRegistration">Register</button>
+        </div>
+    </form>
+
+    <script src="../js/storage.js"></script>
+    <script>
+        function loadEventDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+            if (!eventId) {
+                alert('No event ID provided');
+                window.location.href = 'Homepages.html';
+                return;
+            }
+            const event = getEventById(eventId);
+            if (!event) {
+                alert('Event not found');
+                window.location.href = 'Homepages.html';
+                return;
+            }
+            document.getElementById('event-name').textContent = event.Name;
+            document.getElementById('event-date').textContent = new Date(event.Date).toLocaleDateString();
+            window.currentEvent = event;
+        }
+
+        document.getElementById('submitRegistration').addEventListener('click', function() {
+            const session = getSession();
+            if (!session) {
+                alert('Please login first');
+                window.location.href = '../Basiclogin.html';
+                return;
+            }
+
+            const formData = {
+                eventId: window.currentEvent.id,
+                eventName: window.currentEvent.Name,
+                eventDate: window.currentEvent.Date,
+                userId: session.userId,
+                participantName: document.getElementById('participantName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                registrationType: 'solo'
+            };
+
+            if (!formData.participantName || !formData.email || !formData.phone) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            try {
+                addRegistration(formData);
+                alert('Registration successful!');
+                window.location.href = 'Personalinfos.html';
+            } catch (error) {
+                alert('Error registering: ' + error.message);
+            }
+        });
+
+        loadEventDetails();
+    </script>
+</body>
+</html></content>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>January Events</title>
+    <link rel="stylesheet" href="monthstyle.css">
+</head>
+<body>
+
+    <h1 class="dashboard-title">JANUARY EVENTS</h1>
+
+  
+    <div class="top-menu">
+        <a href="Homepages.html" class="btn small">BACK TO HOME</a>
+    </div>
+
+    
+    <div class="month-container">
+        <!-- Events will be loaded dynamically -->
+    </div>
+
+    <script src="../js/storage.js"></script>
+    <script>
+        function loadEvents() {
+            const month = 0; // January is month 0 (0-based)
+            const events = getEventsByMonth(month);
+            const container = document.querySelector('.month-container');
+            container.innerHTML = ''; // Clear existing static events
+            const now = new Date();
+            now.setHours(0, 0, 0, 0); // Reset time to start of day for date comparison
+            events.forEach(event => {
+                const eventDate = new Date(event.Date);
+                eventDate.setHours(0, 0, 0, 0);
+                const regCount = getRegistrationCount(event.id);
+                const isPast = eventDate < now;
+                const isFull = regCount >= parseInt(event.MaximumParticipants);
+                
+                const eventElement = document.createElement('a');
+                eventElement.href = 'event.html?id=' + event.id;
+                eventElement.className = 'event-box';
+                eventElement.textContent = event.Name;
+                if (isFull) {
+                    eventElement.classList.add('disabled');
+                    eventElement.textContent += ' (Full)';
+                } else if (isPast) {
+                    eventElement.classList.add('disabled');
+                    eventElement.textContent += ' (Past)';
+                }
+                container.appendChild(eventElement);
+            });
+        }
+        loadEvents();
+    </script>
+
+</body>
+</html>
+

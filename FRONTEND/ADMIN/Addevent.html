@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADD EVENT</title>
+    <link rel="stylesheet" href="Addevents.css">
+</head>
+<body>
+    <h1>Please enter the details of the event!</h1>
+    <form class="login-form">
+        <div class="form-row">
+            <label for="Name">Name: </label>
+            <input type="text" id="Name" name="Name" placeholder="Enter Name">
+        </div>
+        <div class="form-row">
+            <label for="Department">Department: </label>
+            <input type="text" id="Department" name="Department" placeholder="Enter Department">
+        </div>
+        <div class="form-row">
+            <label for="MainClub">Main Club: </label>
+            <input type="text" id="MainClub" name="MainClub" placeholder="Enter Main Club">
+        </div>
+        <div class="form-row">
+            <label for="SecondClub">Second Club: </label>
+            <input type="text" id="SecondClub" name="SecondClub" placeholder="Enter Second Club">
+        </div>
+        <div class="form-row">
+            <label for="ThirdClub">Third Club: </label>
+            <input type="text" id="ThirdClub" name="ThirdClub" placeholder="Enter Third Club">
+        </div>
+        <div class="form-row">
+            <label for="Adminname">Admin name: </label>
+            <input type="text" id="Adminname" name="Adminname" placeholder="Enter Admin name">
+        </div>
+        <div class="form-row">
+            <label for="AdminPhone">Admin Phone: </label>
+            <input type="tel" id="AdminPhone" name="AdminPhone" placeholder="Enter Admin phone number">
+        </div>
+        <div class="form-row">
+            <label for="Description">Description: </label>
+            <textarea id="Description" name="Description" placeholder="Enter event description" rows="4" style="width: 100%; font-size: 18px; font-family: 'Times New Roman', Times, serif;"></textarea>
+        </div>
+        <div class="form-row">
+            <label for="Date">Date: </label>
+            <input type="date" id="Date" name="Date" placeholder="Enter Date">
+        </div>
+        <div class="form-row">
+            <label for="StartTime">Start Time: </label>
+            <input type="time" id="StartTime" name="StartTime" placeholder="Enter Start Time">
+        </div>
+        <div class="form-row">
+            <label for="EndTime">End Time: </label>
+            <input type="time" id="EndTime" name="EndTime" placeholder="Enter End Time">
+        </div>
+        <div class="form-row">
+            <label for="Venue">Venue: </label>
+            <input type="text" id="Venue" name="Venue" placeholder="Enter Venue">
+        </div>
+        <div class="form-row">
+            <label for="MaximumParticipants">Maximum Participants: </label>
+            <input type="number" id="MaximumParticipants" name="MaximumParticipants" placeholder="Enter Maximum Participants">
+        </div>
+    </form>
+    <div class="button-container">
+    <button type="button" class="btn" id="addEventBtn">ADD EVENT</button>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script>
+        document.getElementById('addEventBtn').addEventListener('click', function() {
+            const formData = {
+                Name: document.getElementById('Name').value.trim(),
+                Department: document.getElementById('Department').value.trim(),
+                MainClub: document.getElementById('MainClub').value.trim(),
+                SecondClub: document.getElementById('SecondClub').value.trim(),
+                ThirdClub: document.getElementById('ThirdClub').value.trim(),
+                Adminname: document.getElementById('Adminname').value.trim(),
+                AdminPhone: document.getElementById('AdminPhone').value.trim(),
+                Description: document.getElementById('Description').value.trim(),
+                Date: document.getElementById('Date').value,
+                StartTime: document.getElementById('StartTime').value,
+                EndTime: document.getElementById('EndTime').value,
+                Venue: document.getElementById('Venue').value.trim(),
+                MaximumParticipants: document.getElementById('MaximumParticipants').value
+            };
+
+            // Validation
+            if (!formData.Name) {
+                alert('Event name is required.');
+                return;
+            }
+            if (!formData.Department) {
+                alert('Department is required.');
+                return;
+            }
+            if (!formData.Adminname) {
+                alert('Admin name is required.');
+                return;
+            }
+            if (!formData.Date) {
+                alert('Date is required.');
+                return;
+            }
+            if (!formData.StartTime) {
+                alert('Start time is required.');
+                return;
+            }
+            if (!formData.EndTime) {
+                alert('End time is required.');
+                return;
+            }
+            if (!formData.Venue) {
+                alert('Venue is required.');
+                return;
+            }
+            if (!formData.MaximumParticipants || isNaN(formData.MaximumParticipants) || formData.MaximumParticipants <= 0) {
+                alert('Maximum participants must be a positive number.');
+                return;
+            }
+
+            try {
+                addEvent(formData);
+                alert('Event added successfully!');
+                window.location.href = 'Homepagea.html';
+            } catch (error) {
+                alert('Error adding event: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
