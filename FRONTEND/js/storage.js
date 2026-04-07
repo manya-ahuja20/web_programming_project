@@ -132,6 +132,7 @@ function isUserRegisteredForEvent(userId, eventId) {
 function getEventsByAdmin(adminName) {
   const events = getEvents();
   return events.filter(event => event.Adminname === adminName);
+
 }
 
 function deleteEvent(eventId) {
@@ -144,4 +145,5 @@ function deleteEvent(eventId) {
   const registrations = getRegistrations();
   const filteredRegistrations = registrations.filter(reg => reg.eventId !== eventId);
   saveRegistrations(filteredRegistrations);
+
 }
